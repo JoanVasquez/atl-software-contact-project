@@ -11,7 +11,6 @@ export class ContactService {
   private apiService: ApiService;
   private header: HttpHeaders;
   private params: HttpParams;
-  //private contacts: Contact[];
 
   constructor(private http: HttpClient) {
     this.header = new HttpHeaders({
@@ -27,5 +26,11 @@ export class ContactService {
       .subscribe((res) => {
         localStorage.setItem('contacts', JSON.stringify(res));
       });
+  }
+
+  public getContactById(id: number): Contact {
+    let contacts = JSON.parse(localStorage.getItem('contacts'));
+    const contact = contacts.find((contact) => contact.id === id);
+    return contact;
   }
 }

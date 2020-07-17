@@ -3,6 +3,10 @@
     <h2 class="text-primary text-uppercase">
       Contact Form
     </h2>
-    <app-form [data]="data" [props]="props"></app-form>
+    <app-form
+      [data]="data"
+      [props]="props"
+      (filterSubmit)="onSubmit()"
+    ></app-form>
   </div>
 </div>
