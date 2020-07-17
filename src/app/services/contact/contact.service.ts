@@ -61,10 +61,19 @@ export class ContactService {
 
   public updateContact(contact: Contact): void {
     let contacts: Contact[] = JSON.parse(localStorage.getItem('contacts'));
-
-    const index: number = this.getContactIndex(contacts, contact.id);
-    contacts[index] = contact;
-    localStorage.setItem('contacts', JSON.stringify(contacts));
+    if (contacts) {
+      const index: number = this.getContactIndex(contacts, contact.id);
+      contacts[index] = contact;
+      localStorage.setItem('contacts', JSON.stringify(contacts));
+    } else {
+      this.apiService
+        .request('GET', '/assets/data.json', this.header)
+        .subscribe((contacts: Contact[]) => {
+          const index: number = this.getContactIndex(contacts, contact.id);
+          contacts[index] = contact;
+          localStorage.setItem('contacts', JSON.stringify(contacts));
+        });
+    }
   }
 
   private getContactIndex(contacts: Contact[], id): number {
