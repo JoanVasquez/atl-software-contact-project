@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { PaginationInstance } from 'ngx-pagination';
 
 import { paginationInstance } from './pagination.config';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-datatable',
@@ -20,14 +21,15 @@ export class DatatableComponent implements OnInit {
   loading: boolean = true;
 
   paginationConfig: PaginationInstance;
-  constructor() {}
+  constructor(private router: Router) {}
 
   ngOnInit(): void {
+    console.log(this.data);
     if (this.data.length === 0 || this.data.length > 0) this.loading = false;
     this.paginationConfig = paginationInstance;
   }
 
   onEdit(id: number): void {
-    //this.router.navigateByUrl(`${this.updatePath}/${id}`);
+    this.router.navigateByUrl(`${this.updatePath}/${id}`);
   }
 }

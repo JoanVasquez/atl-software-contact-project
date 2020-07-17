@@ -22,14 +22,7 @@ export const setData = (data: Contact) => {
       data.lastName,
       [Validators.required, Validators.pattern('^[a-zA-z ]*$')],
     ],
-    email: [
-      data.email,
-      [
-        Validators.required,
-        Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$'),
-        Validators.email,
-      ],
-    ],
+    email: [data.email, [Validators.required, Validators.email]],
     phoneNumber: [data.phoneNumber, [Validators.required]],
     address: [data.address, [Validators.required]],
     occupation: [
@@ -73,7 +66,7 @@ export const props = {
     },
     {
       name: 'phoneNumber',
-      type: 'tel',
+      type: 'text',
       label: 'Phone Number',
       placeholder: 'Insert Your Phone Number',
       inputType: 'telephone',

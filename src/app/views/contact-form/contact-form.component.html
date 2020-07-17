@@ -3,10 +3,25 @@
     <h2 class="text-primary text-uppercase">
       Contact Form
     </h2>
-    <app-form
-      [data]="data"
-      [props]="props"
-      (filterSubmit)="onSubmit()"
-    ></app-form>
+    <alert
+      *ngIf="showAlert"
+      (removeAlert)="onRemoveAlert()"
+      alertColor="alert-success"
+      message="Successfully saved!"
+      messageIdentity="Successful"
+    ></alert>
+    <img
+      class="img-fluid mx-auto d-block rounded mt-5"
+      src="../../../assets/loading-spinner.gif"
+      alt=""
+      *ngIf="!data; else contactform"
+    />
+    <ng-template #contactform>
+      <app-form
+        [data]="data"
+        [props]="props"
+        (filterSubmit)="onSubmit()"
+      ></app-form>
+    </ng-template>
   </div>
 </div>

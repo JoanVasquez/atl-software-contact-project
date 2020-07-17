@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from '../api.service';
 import { HttpHeaders, HttpParams, HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Contact } from '../../models/Contact';
 
 @Injectable({
@@ -11,7 +12,7 @@ export class ContactService {
   private apiService: ApiService;
   private header: HttpHeaders;
   private params: HttpParams;
-  private contacts: Contact[];
+  private contacts: Contact[] = [];
 
   constructor(private http: HttpClient) {
     this.header = new HttpHeaders({
@@ -19,27 +20,54 @@ export class ContactService {
     });
     this.params = new HttpParams();
     this.apiService = new ApiService(http);
-    this.contacts = JSON.parse(localStorage.getItem('contacts'));
   }
 
-  public getContact(): void {
-    if (!this.contacts) {
-      this.apiService
+  public getContacts(): Observable<Contact[]> {
+    //let contacts: Contact[] = JSON.parse(localStorage.getItem('contacts'));
+
+    return this.apiService.request('GET', '/assets/data.json', this.header);
+  }
+
+  public getContactById(id: number): Observable<Contact> {
+    let contacts: Contact[] = JSON.parse(localStorage.getItem('contacts'));
+    if (contacts) {
+      return of(contacts.find((contact) => contact.id === id));
+    } else {
+      return this.apiService
         .request('GET', '/assets/data.json', this.header)
-        .subscribe((res) => {
-          localStorage.setItem('contacts', JSON.stringify(res));
-        });
+        .pipe(map((conts: Contact[]) => conts.find((c) => c.id === id)));
     }
   }
 
-  public getContactById(id: number): Contact {
-    const contact: Contact = this.contacts.find((contact) => contact.id === id);
-    return contact;
+  public saveContacts(contact: Contact): void {
+    this.apiService
+      .request('GET', '/assets/data.json', this.header)
+      .subscribe((contacts: Contact[]) => {
+        let localStorageCont: Contact[] = JSON.parse(
+          localStorage.getItem('contacts')
+        );
+        if (localStorageCont) {
+          contact.id = localStorageCont.length + contacts.length + 1;
+          contacts.push(contact);
+          localStorage.setItem('contacts', JSON.stringify(contacts));
+        } else {
+          contact.id = contacts.length + 1;
+          contacts.push(contact);
+          localStorage.removeItem('contacts');
+          localStorage.setItem('contacts', JSON.stringify(contacts));
+        }
+      });
   }
 
-  public saveContacts(contact: Contact): void {
-    contact.id = this.contacts.length + 1;
-    this.contacts.push(contact);
-    localStorage.setItem('contacts', JSON.stringify(this.contacts));
+  public updateContact(contact: Contact): void {
+    let contacts: Contact[] = JSON.parse(localStorage.getItem('contacts'));
+
+    const index: number = this.getContactIndex(contacts, contact.id);
+    contacts[index] = contact;
+    localStorage.setItem('contacts', JSON.stringify(contacts));
+  }
+
+  private getContactIndex(contacts: Contact[], id): number {
+    return contacts.findIndex((contact) => contact.id === id);
   }
 }

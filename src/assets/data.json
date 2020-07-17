@@ -4,48 +4,71 @@
     "firstName": "Joan",
     "lastName": "Vasquez",
     "email": "yoloprogramo22@gmail.com",
-    "phoneNumber": "(809) 276-4745",
+    "phoneNumber": "+1 809 276-4745",
     "address": "Invivienda, 4688, 1, 1D",
-    "occupation": "Software Eng."
+    "occupation": "Software Eng"
   },
   {
     "id": 2,
     "firstName": "Leanne",
     "lastName": "Graham",
     "email": "Sincere@april.biz",
+    "phoneNumber": "+1 829 289-4755",
     "address": "Gwenborough, Kulas Light, 556",
-    "occupation": "Marketing."
+    "occupation": "Marketing"
   },
   {
     "id": 3,
     "firstName": "Ervin",
     "lastName": "Howell",
     "email": "Shanna@melissa.tv",
+    "phoneNumber": "+1 809 555-7455",
     "address": "Wisokyburgh, Victor Plains, 879",
-    "occupation": "Social Media."
+    "occupation": "Social Media"
   },
   {
     "id": 4,
     "firstName": "Clementine",
     "lastName": "Bauch",
     "email": "Nathan@yesenia.net",
+    "phoneNumber": "+1 849 563-8811",
     "address": "McKenziehaven, Douglas Extension, 847",
-    "occupation": "Doctor."
+    "occupation": "Doctor"
   },
   {
     "id": 5,
     "firstName": "Patricia",
     "lastName": "Lebsack",
     "email": "Julianne.OConner@kory.org",
+    "phoneNumber": "+1 809 276-4855",
     "address": "South Elvis, Hoeger Mall, 692",
-    "occupation": "Nurse."
+    "occupation": "Nurse"
   },
   {
     "id": 6,
     "firstName": "Chelsey",
     "lastName": "Dietrich",
     "email": "Lucio_Hettinger@annie.ca",
+    "phoneNumber": "+1 809 279-2788",
     "address": "Roscoeview, Skiles Walks, 351",
     "occupation": "Secretary"
+  },
+  {
+    "id": 7,
+    "firstName": "Dennis",
+    "lastName": "Schulist",
+    "email": "Karley_Dach@jasper.info",
+    "phoneNumber": "+1 809 364-2722",
+    "address": "South Christy, Norberto Crossing, 950",
+    "occupation": "Actor"
+  },
+  {
+    "id": 8,
+    "firstName": "Nicholas",
+    "lastName": "Runolfsdottir",
+    "email": "Sherwood@rosamond.me",
+    "phoneNumber": "+1 809 364-2722",
+    "address": "Aliyaview, Ellsworth Summit, 729",
+    "occupation": "Police"
   }
 ]

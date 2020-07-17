@@ -9,13 +9,20 @@ import { headerTable } from './contact.list.config';
   styleUrls: ['./contact-list.component.scss'],
 })
 export class ContactListComponent implements OnInit {
-  contacts: Contact[];
+  contacts: Contact[] = [];
   headerTable: object;
   constructor(private contactService: ContactService) {}
 
   ngOnInit(): void {
     this.headerTable = headerTable;
-    this.contactService.getContact();
-    this.contacts = JSON.parse(localStorage.getItem('contacts'));
+
+    this.contactService.getContacts().subscribe((res) => {
+      let contacts: Contact[] = JSON.parse(localStorage.getItem('contacts'));
+      if (contacts) {
+        this.contacts = [...contacts];
+      } else {
+        this.contacts = [...res];
+      }
+    });
   }
 }

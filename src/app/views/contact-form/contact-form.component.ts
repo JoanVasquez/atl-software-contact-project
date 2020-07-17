@@ -18,6 +18,9 @@ export class ContactFormComponent implements OnInit {
   props: any;
   data: FormGroup;
   contact: Contact = defaultValues;
+  loading: boolean = false;
+  showAlert: boolean = false;
+  contacts: Contact[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -30,13 +33,37 @@ export class ContactFormComponent implements OnInit {
     this.props = propsConfig;
     let id: string = this.activatedRoute.snapshot.paramMap.get('id');
 
-    if (id) this.contact = this.contactService.getContactById(parseInt(id));
-
-    this.data = this.fb.group(setData(this.contact));
+    if (id) {
+      this.contactService.getContactById(parseInt(id)).subscribe((contact) => {
+        if (contact) this.data = this.fb.group(setData(contact));
+        else this.router.navigateByUrl('home');
+      });
+    } else this.data = this.fb.group(setData(this.contact));
   }
 
   onSubmit(): void {
     this.contact = this.data.value;
-    console.log(this.contact);
+    this.loading = true;
+    this.contact.phoneNumber = this.contact.phoneNumber.internationalNumber;
+    if (this.contact.id) {
+      this.contactService.updateContact(this.contact);
+      this.saveOrUpdate();
+    } else {
+      this.contactService.saveContacts(this.contact);
+      this.saveOrUpdate();
+    }
+  }
+
+  onRemoveAlert(): void {
+    this.showAlert = false;
+  }
+
+  private saveOrUpdate(): void {
+    this.showAlert = true;
+    setTimeout(() => {
+      this.showAlert = false;
+      this.loading = false;
+      this.router.navigateByUrl('home');
+    }, 1000);
   }
 }

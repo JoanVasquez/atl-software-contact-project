@@ -5,7 +5,7 @@
       class="img-fluid mx-auto d-block rounded mt-5"
       src="../../../assets/loading-spinner.gif"
       alt=""
-      *ngIf="loading; else datatable"
+      *ngIf="!data.length; else datatable"
     />
     <ng-template #datatable>
       <div class="table-responsive">
@@ -25,7 +25,7 @@
             </tr>
           </thead>
           <tbody *ngIf="data.length">
-            <tr *ngFor="let dt of data | paginate: paginationConfig">
+            <tr *ngFor="let dt of data | reverse | paginate: paginationConfig">
               <td *ngFor="let ht of objectKeys(headerTable)">
                 <div class="mt-3">
                   {{ dt[ht] }}
@@ -34,9 +34,9 @@
                   <a type="button" class="ml-2" (click)="onEdit(dt.id)">
                     <i class="fas fa-edit"></i>
                   </a>
-                  <a *ngIf="headerTable[ht].delete" type="button" class="ml-3">
+                  <!--<a *ngIf="headerTable[ht].delete" type="button" class="ml-3">
                     <i class="far fa-trash-alt"></i>
-                  </a>
+                  </a>-->
                 </div>
               </td>
             </tr>

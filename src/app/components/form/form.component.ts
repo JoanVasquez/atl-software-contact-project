@@ -16,6 +16,7 @@ export class FormComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
+    console.log(this.data);
     this.phoneCode = phoneCode;
   }
 
