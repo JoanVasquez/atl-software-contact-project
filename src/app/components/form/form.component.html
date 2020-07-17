@@ -12,10 +12,24 @@
           [placeholder]="props.properties[i].placeholder"
           [formControlName]="props.properties[i].name"
         />
-        <!--<app-input-error
-            [error]="props.properties[i].name"
-            [data]="data"
-          ></app-input-error>-->
+        <input-error
+          [error]="props.properties[i].name"
+          [data]="data"
+        ></input-error>
+      </div>
+
+      <div *ngIf="props.properties[i].inputType === 'telephone'">
+        <ngx-intl-tel-input
+          [preferredCountries]="['sg']"
+          [onlyCountries]="phoneCode"
+          [enablePlaceholder]="true"
+          [enableAutoCountrySelect]="true"
+          [formControlName]="props.properties[i].name"
+        ></ngx-intl-tel-input>
+        <input-error
+          [error]="props.properties[i].name"
+          [data]="data"
+        ></input-error>
       </div>
 
       <div *ngIf="props.properties[i].inputType === 'textarea'">
@@ -24,10 +38,10 @@
           [placeholder]="props.properties[i].placeholder"
           [formControlName]="props.properties[i].name"
         ></textarea>
-        <!--<app-input-error
-            [error]="props.properties[i].name"
-            [data]="data"
-          ></app-input-error>-->
+        <input-error
+          [error]="props.properties[i].name"
+          [data]="data"
+        ></input-error>
       </div>
 
       <div *ngIf="props.properties[i].inputType === 'select'">
@@ -43,10 +57,10 @@
             {{ option }}
           </option>
         </select>
-        <!--<app-input-error
-            [error]="props.properties[i].name"
-            [data]="data"
-          ></app-input-error>-->
+        <input-error
+          [error]="props.properties[i].name"
+          [data]="data"
+        ></input-error>
       </div>
 
       <div
@@ -61,10 +75,10 @@
         <label class="form-check-label">
           {{ props.properties[i].msg }}
         </label>
-        <!--<app-input-error
-            [error]="props.properties[i].name"
-            [data]="data"
-          ></app-input-error>-->
+        <input-error
+          [error]="props.properties[i].name"
+          [data]="data"
+        ></input-error>
       </div>
 
       <div class="form-check" *ngIf="props.properties[i].inputType === 'radio'">
@@ -76,10 +90,10 @@
         <label class="font-weight-bold">
           {{ props.properties[i].msg }}
         </label>
-        <!--<app-input-error
-            [error]="props.properties[i].name"
-            [data]="data"
-          ></app-input-error>-->
+        <input-error
+          [error]="props.properties[i].name"
+          [data]="data"
+        ></input-error>
       </div>
     </div>
   </div>

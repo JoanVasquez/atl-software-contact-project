@@ -7,6 +7,8 @@ import { AppRoutingModule } from '../app-routing.module';
 import { PaginationComponent } from './pagination/pagination.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { FormComponent } from './form/form.component';
+import { InputErrorComponent } from './input-error/input-error.component';
+import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 
 @NgModule({
   declarations: [
@@ -14,8 +16,10 @@ import { FormComponent } from './form/form.component';
     PaginationComponent,
     NavbarComponent,
     FormComponent,
+    InputErrorComponent,
   ],
   imports: [
+    NgxIntlTelInputModule,
     AppRoutingModule,
     CommonModule,
     ReactiveFormsModule,

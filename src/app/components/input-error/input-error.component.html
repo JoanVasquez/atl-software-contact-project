@@ -1,0 +1,17 @@
+<div *ngIf="data.get(error).invalid && data.get(error).touched">
+  <span class="text-danger" *ngIf="data.get(error).hasError('required')">
+    <p>This field is required</p>
+  </span>
+  <span class="text-danger" *ngIf="data.get(error).hasError('email')">
+    <p>Insert a valid email</p>
+  </span>
+  <span class="text-danger" *ngIf="data.get(error).hasError('minlength')">
+    <p>
+      This field must have a length of:
+      {{ data.get(error).errors.minlength.requiredLength }} Characters
+    </p>
+  </span>
+  <span class="text-danger" *ngIf="data.get(error).hasError('pattern')">
+    <p>This field has an invalid format</p>
+  </span>
+</div>

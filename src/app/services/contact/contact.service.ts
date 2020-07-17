@@ -11,6 +11,7 @@ export class ContactService {
   private apiService: ApiService;
   private header: HttpHeaders;
   private params: HttpParams;
+  private contacts: Contact[];
 
   constructor(private http: HttpClient) {
     this.header = new HttpHeaders({
@@ -18,19 +19,27 @@ export class ContactService {
     });
     this.params = new HttpParams();
     this.apiService = new ApiService(http);
+    this.contacts = JSON.parse(localStorage.getItem('contacts'));
   }
 
   public getContact(): void {
-    this.apiService
-      .request('GET', '/assets/data.json', this.header)
-      .subscribe((res) => {
-        localStorage.setItem('contacts', JSON.stringify(res));
-      });
+    if (!this.contacts) {
+      this.apiService
+        .request('GET', '/assets/data.json', this.header)
+        .subscribe((res) => {
+          localStorage.setItem('contacts', JSON.stringify(res));
+        });
+    }
   }
 
   public getContactById(id: number): Contact {
-    let contacts = JSON.parse(localStorage.getItem('contacts'));
-    const contact = contacts.find((contact) => contact.id === id);
+    const contact: Contact = this.contacts.find((contact) => contact.id === id);
     return contact;
+  }
+
+  public saveContacts(contact: Contact): void {
+    contact.id = this.contacts.length + 1;
+    this.contacts.push(contact);
+    localStorage.setItem('contacts', JSON.stringify(this.contacts));
   }
 }
