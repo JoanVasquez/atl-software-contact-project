@@ -1,4 +1,4 @@
-<div class="row shadow-sm mt-5">
+<div class="row shadow-sm mt-5 animate__animated animate__fadeIn">
   <div class="col-12 p-4 bg-white">
     <h2 class="text-primary text-uppercase">
       Contact Form
@@ -10,18 +10,98 @@
       message="Successfully saved!"
       messageIdentity="Successful"
     ></alert>
-    <img
-      class="img-fluid mx-auto d-block rounded mt-5"
-      src="../../../assets/loading-spinner.gif"
-      alt=""
-      *ngIf="!data; else contactform"
-    />
+    <div class="text-center mt-5" *ngIf="!data; else contactform">
+      <i class="fas fa-sync-alt fa-5x fa-spin"></i>
+    </div>
     <ng-template #contactform>
-      <app-form
-        [data]="data"
-        [props]="props"
-        (filterSubmit)="onSubmit()"
-      ></app-form>
+      <form novalidate [formGroup]="data" (ngSubmit)="onSubmit()">
+        <div class="row">
+          <div class="col-sm-12 col-md-6 form-group">
+            <label class="font-weight-bold">First Name</label>
+            <input
+              class="form-control"
+              type="text"
+              placeholder="Introduce your first name..."
+              formControlName="firstName"
+            />
+            <input-error error="firstName" [data]="data"></input-error>
+          </div>
+
+          <div class="col-sm-12 col-md-6 form-group">
+            <label class="font-weight-bold">Last Name</label>
+            <input
+              class="form-control"
+              type="text"
+              placeholder="Introduce your last name..."
+              formControlName="lastName"
+            />
+            <input-error error="lastName" [data]="data"></input-error>
+          </div>
+
+          <div class="col-sm-12 col-md-6 form-group">
+            <label class="font-weight-bold">Email</label>
+            <input
+              class="form-control"
+              type="email"
+              placeholder="Introduce your email..."
+              formControlName="email"
+            />
+            <input-error error="email" [data]="data"></input-error>
+          </div>
+
+          <div class="col-sm-12 col-md-6 form-group">
+            <label class="font-weight-bold">Phone Number</label>
+            <div>
+              <ngx-intl-tel-input
+                [preferredCountries]="['sg']"
+                [onlyCountries]="phoneCode"
+                [enablePlaceholder]="true"
+                [enableAutoCountrySelect]="true"
+                formControlName="phoneNumber"
+              ></ngx-intl-tel-input>
+            </div>
+            <input-error error="phoneNumber" [data]="data"></input-error>
+          </div>
+
+          <div class="col-sm-12 col-md-6 form-group">
+            <label class="font-weight-bold">Address</label>
+            <textarea
+              class="form-control"
+              placeholder="Introduce your address..."
+              formControlName="address"
+            ></textarea>
+            <input-error error="address" [data]="data"></input-error>
+          </div>
+
+          <div class="col-sm-12 col-md-6 form-group">
+            <label class="font-weight-bold">Occupation</label>
+            <input
+              class="form-control"
+              type="text"
+              placeholder="Introduce your occupation..."
+              formControlName="occupation"
+            />
+            <input-error error="email" [data]="data"></input-error>
+          </div>
+        </div>
+
+        <div class="clearfix">
+          <button
+            type="submit"
+            class="rounded-lg btn btn-success float-right ml-2 mr-2"
+            [disabled]="data.invalid"
+          >
+            Save
+          </button>
+
+          <button
+            type="button"
+            class="rounded-lg btn btn-danger float-right ml-2 mr-2"
+          >
+            Reset
+          </button>
+        </div>
+      </form>
     </ng-template>
   </div>
 </div>

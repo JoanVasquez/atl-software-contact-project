@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { Observable } from 'rxjs';
 import { PaginationInstance } from 'ngx-pagination';
 
@@ -19,17 +19,24 @@ export class DatatableComponent implements OnInit {
   @Input() updatePath;
   @Input() header: string;
   loading: boolean = true;
+  search: string = '';
+
+  @Output() delete: EventEmitter<number> = new EventEmitter<number>();
 
   paginationConfig: PaginationInstance;
   constructor(private router: Router) {}
 
   ngOnInit(): void {
-    console.log(this.data);
     if (this.data.length === 0 || this.data.length > 0) this.loading = false;
     this.paginationConfig = paginationInstance;
   }
 
   onEdit(id: number): void {
     this.router.navigateByUrl(`${this.updatePath}/${id}`);
+  }
+
+  onDelete(id: number): void {
+    let confirm: boolean = window.confirm('Are you sure??');
+    if (confirm) this.delete.emit(id);
   }
 }

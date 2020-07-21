@@ -1,9 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import {
-  props as propsConfig,
-  defaultValues,
-  setData,
-} from './contactform.config';
+import { phoneCode, defaultValues, setData } from './contactform.config';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Contact } from '../../models/Contact';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -21,6 +17,7 @@ export class ContactFormComponent implements OnInit {
   loading: boolean = false;
   showAlert: boolean = false;
   contacts: Contact[] = [];
+  phoneCode: string[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -30,7 +27,7 @@ export class ContactFormComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.props = propsConfig;
+    this.phoneCode = phoneCode;
     let id: string = this.activatedRoute.snapshot.paramMap.get('id');
 
     if (id) {
@@ -45,13 +42,10 @@ export class ContactFormComponent implements OnInit {
     this.contact = this.data.value;
     this.loading = true;
     this.contact.phoneNumber = this.contact.phoneNumber.internationalNumber;
-    if (this.contact.id) {
-      this.contactService.updateContact(this.contact);
-      this.saveOrUpdate();
-    } else {
-      this.contactService.saveContacts(this.contact);
-      this.saveOrUpdate();
-    }
+    if (this.contact.id) this.contactService.updateContact(this.contact);
+    else this.contactService.saveContacts(this.contact);
+
+    this.saveOrUpdate();
   }
 
   onRemoveAlert(): void {

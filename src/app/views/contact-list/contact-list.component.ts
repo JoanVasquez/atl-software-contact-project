@@ -11,18 +11,31 @@ import { headerTable } from './contact.list.config';
 export class ContactListComponent implements OnInit {
   contacts: Contact[] = [];
   headerTable: object;
+  showAlert: boolean = false;
+
   constructor(private contactService: ContactService) {}
 
   ngOnInit(): void {
     this.headerTable = headerTable;
 
-    this.contactService.getContacts().subscribe((res) => {
-      let contacts: Contact[] = JSON.parse(localStorage.getItem('contacts'));
-      if (contacts) {
-        this.contacts = [...contacts];
-      } else {
-        this.contacts = [...res];
-      }
-    });
+    let contacts: Contact[] = JSON.parse(localStorage.getItem('contacts'));
+    if (contacts) {
+      this.contacts = contacts;
+    } else {
+      this.contactService.getContacts().subscribe((contacts: Contact[]) => {
+        this.contacts = contacts;
+        localStorage.setItem('contacts', JSON.stringify(contacts));
+      });
+    }
+  }
+
+  onDelete(id: number): void {
+    this.contactService.deleteContact(id);
+    this.showAlert = true;
+    this.ngOnInit();
+  }
+
+  onRemoveAlert(): void {
+    this.showAlert = false;
   }
 }

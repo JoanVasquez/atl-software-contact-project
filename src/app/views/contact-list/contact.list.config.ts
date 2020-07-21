@@ -1,5 +1,4 @@
 export const headerTable = {
-  id: 'ID',
   firstName: 'First Name',
   lastName: 'Last Name',
   email: 'Email',

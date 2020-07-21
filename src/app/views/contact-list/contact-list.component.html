@@ -1,11 +1,19 @@
-<div class="row">
+<div class="row animate__animated animate__fadeIn">
   <div class="col-12">
+    <alert
+      *ngIf="showAlert"
+      (removeAlert)="onRemoveAlert()"
+      alertColor="alert-success"
+      message="Successfully deleted!"
+      messageIdentity="Successful"
+    ></alert>
     <app-datatable
       [data]="contacts"
       action="true"
       updatePath="/edit"
       header="Contact List"
       [headerTable]="headerTable"
+      (delete)="onDelete($event)"
     ></app-datatable>
   </div>
 </div>
