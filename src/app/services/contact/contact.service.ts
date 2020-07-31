@@ -27,7 +27,11 @@ export class ContactService {
 
   public getContactById(id: number): Observable<Contact> {
     if (this.contacts)
-      return of(this.contacts.find((contact) => contact.id === id));
+      return of(
+        this.contacts.find((contact) => {
+          if (contact) return contact.id === id;
+        })
+      );
     else
       return this.getContacts().pipe(
         map((conts: Contact[]) => conts.find((c) => c.id === id))
