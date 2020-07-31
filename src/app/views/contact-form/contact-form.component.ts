@@ -48,6 +48,10 @@ export class ContactFormComponent implements OnInit {
     this.saveOrUpdate();
   }
 
+  resetForm(): void {
+    this.data.reset();
+  }
+
   onRemoveAlert(): void {
     this.showAlert = false;
   }
